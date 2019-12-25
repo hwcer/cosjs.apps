@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>登入</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/webui/style/admin.css" media="all">
+    <link rel="stylesheet" href="/webui/style/login.css" media="all">
+</head>
+<body>
+
+<div class="layadmin-user-login layadmin-user-display-show" id="LAY-user-login" style="display: none;">
+
+    <div class="layadmin-user-login-main">
+        <div class="layadmin-user-login-box layadmin-user-login-header">
+            <h2>COSJS后台管理系统</h2>
+
+        </div>
+        <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
+            <div class="layui-form-item">
+                <label class="layadmin-user-login-icon layui-icon layui-icon-username" for="LAY-user-login-username"></label>
+                <input type="text" name="username" id="LAY-user-login-username" lay-verify="required" placeholder="用户名" class="layui-input">
+            </div>
+            <div class="layui-form-item">
+                <label class="layadmin-user-login-icon layui-icon layui-icon-password" for="LAY-user-login-password"></label>
+                <input type="password" name="password" id="LAY-user-login-password" lay-verify="required" placeholder="密码" class="layui-input">
+            </div>
+
+            <div class="layui-form-item" style="margin-bottom: 20px;" id="slideSubmit"></div>
+            <div class="layui-form-item">
+                <button class="layui-btn layui-btn-fluid layui-btn-disabled" lay-submit lay-filter="login" id="login">登 入</button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="layui-trans layadmin-user-login-footer">
+        <p>© 2018 <a href="#" target="_blank">cosjs.com</a></p>
+    </div>
+
+</div>
+<%- include('../bpath') %>
+<script src="/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '/webui/'  // 模块目录
+    }).extend({
+        "cosjs":"{/}/"+route+"/"+app+"/layui/?name=cosjs",
+        "login":"lib/login",
+    }).use(['form','login','slider','cosjs'], function () {
+        var form = layui.form,$ = layui.jquery,login = layui.login,slider = layui.slider,cosjs=layui.cosjs;
+        let k0 =  cosjs.roll(1,9),k1=cosjs.roll(k0,10)
+        var slideSubmit = false,slideValue = [ k0*10,k1*10];
+
+        var sliderOptions = {
+            elem : '#slideSubmit',
+            step:10,min:0,max:100,showstep:true,range : true,
+            change: function(value){
+                if(value[0] == slideValue[0] && value[1] == slideValue[1] ){
+                    sliderOptions['value'] = value;
+                    sliderOptions['disabled'] = true;
+                    slider.render(sliderOptions);
+                    slideSubmit = true;
+                    $("#login").text("登 入").removeClass('layui-btn-disabled').attr("disabled",false)
+                }
+            }
+        }
+        $("#login").text("请滑动到"+JSON.stringify(slideValue)+'区间').attr("disabled",true);
+        slider.render(sliderOptions);
+
+        form.on('submit(login)', function(data){
+            if(!slideSubmit){  return;  }
+            login(data.field);
+            return false;
+        })
+        if (window!=top){
+            top.location.href =window.location.href;
+        }
+    });
+</script>
+</body>
+</html>

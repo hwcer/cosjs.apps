@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GMTOOL</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+</head>
+
+<body class="gray-bg">
+    <div class="middle-box text-center animated fadeInDown">
+        <% if (err !== 'error') {%>
+        <h2 class="font-bold"><%=err%></h2>
+        <% }%>
+        <div class="error-desc" style="width: 100%;text-align: center;margin-top: 50px;">
+            <%-JSON.stringify(ret)%>
+            <br/><br/>
+            <%
+            var href = "";
+            if(err==="logout"){
+                href = '<a href="/">我要去登录</a>';
+            }
+            else {
+                href = '<img src="/error.gif" />';
+            }
+            %>
+
+            <%-href%>
+
+
+        </div>
+
+
+    </div>
+
+
+</body>
+
+</html>

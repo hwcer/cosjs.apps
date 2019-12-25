@@ -1,0 +1,19 @@
+
+<script>
+    var option = {
+        colModel : [
+            {label: 'ID', name: '_id',key:true,width: 100,editable: true, hidden:false,fixed:true,search:true,
+                formoptions:{elmsuffix: ' 默认自动生成,不可以修改!!'}
+            },
+            {label: '名称', name: 'name',width: 300, editable: true, sortable:false,hidden:false,resize:false,fixed:true,search:false},
+
+            {label: '秘钥', name: 'secret',width: 220, editable: true, sortable:false,hidden:false,resize:false,fixed:false,search:false},
+        ]
+    }
+    $(document).ready(function () {
+        cosjs_create_jqgrid(option);
+        $(grid_selector).jqGrid('navGrid',{
+            search:false
+        })
+    });
+</script>

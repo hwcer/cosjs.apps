@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title><%=ret.title%></title>
+    <%- include("header.ejs") %>
+<style>
+.ui-jqgrid
+{
+	font-size:0.8rem
+}
+</style>
+</head>
+<body style="width: 100%;overflow-x: hidden">
+<div>
+    <table id="jqGrid"></table>
+    <div id="jqGridPager"></div>
+	<span class="oi oi-person"  ></span>
+</div>
+<%- include('bpath') %>
+<script>
+    var handle = '<%=ret.handle%>';
+    var NewNavbar,NewsColModel;
+    var grid_selector = '#jqGrid';
+    var pager_selector ='#jqGridPager';
+    function cosjs_create_jqgrid(option){
+        if(!option['url']) {
+            option['url'] = cosjs.url(GURL(handle, 'page'), arguments[1]);
+        }
+        if(!option['editurl']) {
+            option['editurl'] = cosjs.url(GURL(handle, 'save'), arguments[1]);
+        }
+        cosjs.jqgrid.create(grid_selector,pager_selector,option,arguments[2]);
+    }
+</script>
+<%- include(ret.view) %>
+</body>
+</html>

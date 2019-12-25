@@ -1,0 +1,14 @@
+<script>
+    var app = '<%=app%>',route = '<%=route%>';
+    function GURL(handle,...arr){
+        let h = handle.split('/');
+        if(app){
+            h.unshift(app);
+        }
+        h.unshift(route);
+        h.unshift('');
+        let p = h.concat(arr);
+        //console.log(p)
+        return p.join('/');
+    }
+</script>

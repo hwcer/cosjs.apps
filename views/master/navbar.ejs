@@ -1,0 +1,39 @@
+<ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
+    <%
+        let level = ret['level'] ,navbarArr = [];
+        let keys = Object.keys(ret['navbar']);
+        keys.sort(function (a, b) {
+            let s1 = ret['navbar'][a]['sort']||10;
+            let s2 = ret['navbar'][b]['sort']||10;
+            return s1 - s2;
+        })
+        let icons = ["layui-icon-home","layui-icon-component","layui-icon-app","layui-icon-template"
+                    ,'layui-icon-senior','layui-icon-template-1','layui-icon-component','layui-icon-file-b','layui-icon-layer'
+                     ,'layui-icon-table','layui-icon-chart','layui-icon-chart-screen','layui-icon-engine','layui-icon-set-fill'
+        ];
+        let max_icons_index = icons.length - 1;
+        for(let i in keys){
+            let k = keys[i];
+            let nav = ret['navbar'][k];
+            if(nav['level'] && nav['level'] > level ){
+                continue;
+            }
+            let icon_index = Math.min(i,max_icons_index);
+            let icon = icons[icon_index];
+            let href = nav['href']||'javascript:;';
+            navbarArr.push(`<li data-name="${k}" class="layui-nav-item layui-nav-item">`);
+            navbarArr.push(`<a href="${href}" lay-tips="${nav['name']}" lay-direction="2"><i class="layui-icon ${icon}"></i> <cite>${nav['name']}</cite></a>`);
+            if(nav['submenu']){
+                navbarArr.push('<dl class="layui-nav-child">');
+                for(let submenu of nav['submenu']){
+                    if(submenu['level'] && level >= submenu['level']){
+                        navbarArr.push(`<dd data-name="${submenu['key']}" ><a lay-href="${submenu['href']}">${submenu['name']}</a></dd>`);
+                    }
+                }
+                navbarArr.push('</dl>');
+            }
+            navbarArr.push('</li>');
+        }
+    %>
+    <%-navbarArr.join("\r\n")%>
+</ul>

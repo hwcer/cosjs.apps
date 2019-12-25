@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>选择应用</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/webui/style/admin.css" media="all">
+    <link rel="stylesheet" href="/webui/style/login.css" media="all">
+</head>
+<body>
+
+<div class="layadmin-user-login layadmin-user-display-show" id="LAY-user-select" style="display: none;">
+
+    <div class="layadmin-user-login-main">
+        <div class="layadmin-user-login-box layadmin-user-login-header">
+            <p>选择你准备登入的<%=ret.name%></p>
+        </div>
+        <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
+            <div class="layui-form-item">
+                <select name="app">
+                    <% for(let k in ret.rows ) {%>
+                    <option value="<%=k%>"><%=ret.rows[k]['name']%></option>
+                    <%}%>
+                </select>
+            </div>
+            <div class="layui-form-item">
+                <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="select">确认</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '/webui/'  // 模块目录
+    }).extend({
+        "cosjs":"{/}/layui/?name=cosjs",
+    }).use(['form'], function () {
+        var form = layui.form
+            ,$ = layui.jquery;
+        form.on('submit(select)', function(data){
+            var app = data.field.app;
+            window.location.href =`/<%=route%>/${app}/main/`;
+            return false;
+        })
+    });
+</script>
+</body>
+</html>

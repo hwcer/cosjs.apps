@@ -1,0 +1,18 @@
+{
+    "server" :{
+        "hwc": {"name": "自定义环境", "url": "http://centos.hwc.com"},
+        "edroity": {"name": "阿里云开发环境", "url": "http://dev.edroity.net"},
+        "india": {"name": "印度区域测试环境", "url": "http://149.129.137.106"},
+        "faceking": {"name": "faceking", "url": "http://gadmin.gauss1000.cn"},
+        "dmm": {"name": "DMM平台", "url": "http://47.245.55.89"}
+    },
+
+    "bookmark" : {
+        "json": {"name": "jsonParse", "url": "https://www.json.cn/"},
+        "baidu": {"name": "百度搜索", "url": "https://www.baidu.com"},
+        "fanyi": {"name": "百度翻译", "url": "https://fanyi.baidu.com"},
+        "package": {"name": "打包工具", "url": "http://192.168.1.148:8081/"},
+        "tapd": {"name": "TAPD", "url": "https://www.tapd.cn/cloud_logins/login"}
+    }
+
+}
